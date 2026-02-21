@@ -10,7 +10,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t devsecops-app .'
+                sh '/usr/bin/docker build -t devsecops-app .'
             }
         }
 
@@ -18,7 +18,7 @@ pipeline {
             steps {
                 sh '''
                 aws ecr get-login-password --region $AWS_REGION | \
-                docker login --username AWS --password-stdin $ECR_REPO
+                /usr/bin/docker login --username AWS --password-stdin 268539558488.dkr.ecr.ap-south-1.amazonaws.com
                 '''
             }
         }
@@ -26,8 +26,8 @@ pipeline {
         stage('Tag & Push Image') {
             steps {
                 sh '''
-                docker tag devsecops-app:latest $ECR_REPO:latest
-                docker push $ECR_REPO:latest
+                /usr/bin/docker tag devsecops-app:latest $ECR_REPO:latest
+                /usr/bin/docker push $ECR_REPO:latest
                 '''
             }
         }
